@@ -9,11 +9,9 @@ exports.compile = (src) => {
   return wasm;
 };
 
-exports.runtime = async (src, env) => {
+exports.runtime = async (src) => {
   const wasm = compile(src);
-  const result = await WebAssembly.instantiate(wasm, {
-    env,
-  });
+  const result = await WebAssembly.instantiate(wasm);
   return () => {
     result.instance.exports.run();
   };
